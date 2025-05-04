@@ -15,6 +15,7 @@ let win;
 
 let createFieldsInSalesforce = () => {
     csvObjectArray.forEach( async (element,index) =>{
+        console.log(element[2]);
         if(hasHeader && index == 0){
             return;
         }
@@ -85,6 +86,7 @@ const createWindow = () => {
             if(newUrl.includes("localhost")){
                 let url = new URL(newUrl);
                 let queryParams = new URLSearchParams(url.hash.substring(1));
+                console.log(queryParams.get('access_token'));
                 SalesforceAPIWrapper.init(queryParams.get('access_token'),queryParams.get('instance_url'));
                 console.log(queryParams.get('access_token'));
                 win.webContents.send('authorize-org', SalesforceAPIWrapper.baseSalesforceURL);

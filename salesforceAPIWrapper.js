@@ -70,9 +70,24 @@ class SalesforceAPIWrapper {
     static async insertField(sobjectType,fieldName,label,type,inlineHelpText,required,unique,caseSensitive,externalId,valueSet,referenceTo,relationshipName){
         let fieldMetadata = {
             FullName : sobjectType + "." + fieldName,
-            Metadata :  {label: label,type: type, inlineHelpText: inlineHelpText,required: required, unique: unique,caseSensitive: caseSensitive, externalId: externalId, valueSet: valueSet, referenceTo: referenceTo, relationshipName: relationshipName}
+            Metadata :  {label: label,type: type, inlineHelpText: inlineHelpText,required: required, unique: unique,caseSensitive: caseSensitive, externalId: externalId}
         }
-        await this.http.post('/services/data/'+this.apiVersion+'/tooling/sobjects/CustomField',fieldMetadata,this.config).catch((error) => (console.log(error.response.data)));
+        if(type === "Picklist"){
+            fieldMetadata.Metadata.valueSet = valueSet;
+        }
+        if(type === "Lookup"){
+            fieldMetadata.Metadata.referenceTo = referenceTo;
+            fieldMetadata.Metadata.relationshipName = relationshipName;
+        }
+        if(type ==="Text"){
+            fieldMetadata.Metadata.length = 255;
+        }
+        if(type ==="Number"){
+            fieldMetadata.Metadata.precision = 18;
+            fieldMetadata.Metadata.scale = 0;
+        }
+        console.log(fieldMetadata);
+        await this.http.post('/services/data/'+this.apiVersion+'/tooling/sobjects/CustomField',fieldMetadata,this.config).catch((error) => (console.log(error)));
     }
     static insertFieldPermissionsPermissionSet(permissionSetId,field,sobjectType,permissionsRead,permissionsEdit){
          let permissionMetadata = {
@@ -82,7 +97,7 @@ class SalesforceAPIWrapper {
             PermissionsRead : permissionsRead,
             PermissionsEdit : permissionsEdit
         }
-        this.http.post('/services/data/'+this.apiVersion+'/sobjects/FieldPermissions',permissionMetadata,this.config).catch((error) => (console.log(error.response.data)));
+        this.http.post('/services/data/'+this.apiVersion+'/sobjects/FieldPermissions',permissionMetadata,this.config).catch((error) => (console.log(error)));
     }
     static insertFieldPermissionsProfile(profileId,field,sobjectType,permissionsRead,permissionsEdit){
         this.http.get(`/services/data/${this.apiVersion}/tooling/query?q=SELECT%20Id%2CName%20FROM%20PermissionSet%20WHERE%20ProfileId%20%3D%20%27${profileId}%27`,this.config).then((permissionSetIdResponse)=>{
@@ -93,7 +108,7 @@ class SalesforceAPIWrapper {
             PermissionsRead : permissionsRead,
             PermissionsEdit : permissionsEdit
         }
-        this.http.post('/services/data/'+this.apiVersion+'/sobjects/FieldPermissions',permissionMetadata,this.config).catch((error) => (console.log(error.response.data)));
+        this.http.post('/services/data/'+this.apiVersion+'/sobjects/FieldPermissions',permissionMetadata,this.config).catch((error) => (console.log(error)));
     });
     }
     

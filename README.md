@@ -10,7 +10,6 @@ for notes on deploying the project on a live system.
 
 ### Prerequisites
 
-Requirements for the software and other tools to build, test and push 
 - [npm](https://www.npmjs.com/)
 - [git](https://git-scm.com/downloads)
 

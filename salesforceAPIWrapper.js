@@ -67,10 +67,10 @@ class SalesforceAPIWrapper {
             return response.data;
         }
     }
-    static async insertField(sobjectType,fieldName,label,type,inlineHelpText,required,unique,caseSensitive,externalId,valueSet){
+    static async insertField(sobjectType,fieldName,label,type,inlineHelpText,required,unique,caseSensitive,externalId,valueSet,referenceTo,relationshipName){
         let fieldMetadata = {
             FullName : sobjectType + "." + fieldName,
-            Metadata :  {label: label,type: type, inlineHelpText: inlineHelpText,required: required, unique: unique,caseSensitive: caseSensitive, externalId: externalId, valueSet: valueSet}
+            Metadata :  {label: label,type: type, inlineHelpText: inlineHelpText,required: required, unique: unique,caseSensitive: caseSensitive, externalId: externalId, valueSet: valueSet, referenceTo: referenceTo, relationshipName: relationshipName}
         }
         await this.http.post('/services/data/'+this.apiVersion+'/tooling/sobjects/CustomField',fieldMetadata,this.config).catch((error) => (console.log(error.response.data)));
     }

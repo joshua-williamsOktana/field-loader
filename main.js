@@ -23,7 +23,7 @@ let createFieldsInSalesforce = () => {
         element[8].split('|').forEach( (picklistVal) =>{
             picklistValues.valueSetDefinition.value.push({valueName: picklistVal, label: picklistVal})
         });
-        SalesforceAPIWrapper.insertField(salesforceObject,element[0],element[1],element[2],element[3],(element[4].toLowerCase() === "true"),(element[5].toLowerCase() === "true"),(element[6].toLowerCase() === "true"),(element[7].toLowerCase() === "true"),picklistValues);
+        SalesforceAPIWrapper.insertField(salesforceObject,element[0],element[1],element[2],element[3],(element[4].toLowerCase() === "true"),(element[5].toLowerCase() === "true"),(element[6].toLowerCase() === "true"),(element[7].toLowerCase() === "true"),picklistValues,element[9],element[10]);
         Object.keys(permissionMap).forEach((permissionId) =>{
             if(permissionMap[permissionId].profile == true){
                 SalesforceAPIWrapper.insertFieldPermissionsProfile(permissionId,salesforceObject + "." + element[0],salesforceObject,(permissionMap[permissionId].visible === true),(permissionMap[permissionId].readOnly !== true) );

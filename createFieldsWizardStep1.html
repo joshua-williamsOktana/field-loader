@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en" style="background-color:#323232;">
+  <head>
+    <meta charset=
+    "UTF-8">
+    <link rel="stylesheet" type="text/css" href="./node_modules/@salesforce-ux/design-system/assets/styles/salesforce-lightning-design-system.css" />
+    <!-- https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'">
+  </head>
+  <body>
+    <div class="slds-grid slds-grid_align-center slds-p-top_small">
+      <div class="slds-text-heading_small slds-text-color_inverse slds-text-align_center slds-align_absolute-center">Configure FLS for fields to load</div>
+    </div>
+
+    <form id="permissionForm">
+      <div class="slds-p-top_small">
+    <table class="slds-table slds-table_cell-buffer slds-table_bordered" aria-labelledby="element-with-table-label other-element-with-table-label">
+    <thead>
+    <tr class="slds-line-height_reset">
+    <th class="" scope="col">
+    <div class="slds-truncate" title="Field-Level Security for Profile">Field-Level Security for Profile</div>
+    </th>
+    <th class="" scope="col">
+    <div class="slds-truncate" title="Visible">Visible</div>
+    </th>
+    <th class="" scope="col">
+    <div class="slds-truncate" title="Read-Only">Read-Only</div>
+    </th>
+    </tr>
+    </thead>
+    <tbody id ='profileTableBody'>
+    
+    </tbody>
+    </table>
+  </div>
+    <div class="slds-p-top_small">
+    <table class="slds-table slds-table_cell-buffer slds-table_bordered " aria-labelledby="element-with-table-label other-element-with-table-label">
+    <thead>
+    <tr class="slds-line-height_reset">
+    <th class="" scope="col">
+    <div class="slds-truncate" title="Field-Level Security for Profile">Field-Level Security for Permission Set</div>
+    </th>
+    <th class="" scope="col">
+    <div class="slds-truncate" title="Visible">Visible</div>
+    </th>
+    <th class="" scope="col">
+    <div class="slds-truncate" title="Read-Only">Read-Only</div>
+    </th>
+    </tr>
+    </thead>
+    <tbody id ='permissionSetTableBody'>
+    
+    </tbody>
+    </table>
+    </div>
+    <div class="slds-grid slds-grid_align-center slds-p-top_small slds-p-bottom_small">
+      <button class="slds-button slds-button_brand " id="next" type="submit">Next</button>
+    </div>
+    </form>
+
+    <script src="createFieldsWizardStep1.js">
+    </script>
+  </body>
+</html>

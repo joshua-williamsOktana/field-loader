@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" style="background-color:#323232;">
+  <head>
+    <link rel="stylesheet" type="text/css" href="./main.css"/>
+    <link rel="stylesheet" type="text/css" href="./node_modules/@salesforce-ux/design-system/assets/styles/salesforce-lightning-design-system.css" />
+    <meta charset=
+    "UTF-8">
+    
+    <!-- https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'">
+  </head>
+  <body>
+    <div class="container">
+      <div>
+        <div class="slds-grid slds-grid_align-center slds-p-top_small">
+          <div class="slds-text-heading_small slds-text-color_inverse slds-text-align_center slds-align_absolute-center"><b>Confirmation</b></div>
+        </div>
+        <div class="slds-grid slds-grid_align-center slds-p-top_small">
+          <div class="slds-text-heading_small slds-text-color_inverse slds-text-align_center slds-align_absolute-center" id ="org"></div>
+        </div>
+        <div class="slds-grid slds-grid_align-center slds-p-top_small">
+          <div class="slds-text-heading_small slds-text-color_inverse slds-text-align_center slds-align_absolute-center" id ="rowCount"></div>
+        </div>
+        <div class="slds-grid slds-grid_align-center slds-p-top_small">
+          <div class="slds-text-heading_small slds-text-color_inverse slds-text-align_center slds-align_absolute-center" id ="profileCount"></div>
+        </div>
+        <div class="slds-grid slds-grid_align-center slds-p-top_small">
+          <div class="slds-text-heading_small slds-text-color_inverse slds-text-align_center slds-align_absolute-center" id ="permissionSetCount"></div>
+        </div>
+        <div class="slds-grid slds-grid_align-center slds-p-top_small">
+        <button class="slds-button slds-button_brand" id="createFieldsConfirm">Confirm and Create Fields</button>
+      </div>
+    </div>
+    
+    
+  </div>
+
+    <script src="createFieldsWizardStep2.js">
+    </script>
+  </body>
+</html>

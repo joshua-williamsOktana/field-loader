@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" style="background-color:#323232;">
+  <head>
+    <link rel="stylesheet" type="text/css" href="./main.css"/>
+    <link rel="stylesheet" type="text/css" href="./node_modules/@salesforce-ux/design-system/assets/styles/salesforce-lightning-design-system.css" />
+    <meta charset=
+    "UTF-8">
+    
+    <!-- https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'">
+  </head>
+  <body >
+    <div class="slds-grid slds-grid_align-center slds-p-top_small">
+      
+      
+      <div class="slds-text-heading_large slds-text-color_inverse slds-text-align_center slds-align_absolute-center"><div class=" slds-p-right_small ">
+        <svg aria-hidden="true" class="slds-icon slds-icon_large" title="when needed">
+          <use xlink:href="./node_modules/@salesforce-ux/design-system/assets/icons/utility-sprite/svg/symbols.svg#salesforce1"></use>
+        </svg>
+      </div> <b>Field Loader</b></div>
+    </div>
+    <div class="slds-grid slds-grid_align-center slds-p-top_large">
+      <button class="slds-button slds-button_inverse" id="loginButton">Authorize Org</button>
+      <button class="slds-button slds-button_inverse" id="loadCSV">Load Field CSV</button>
+    </div>
+    <div class="slds-grid slds-grid_align-center slds-p-top_medium">
+      <div class="slds-form-element">
+        <div class="slds-form-element__control">
+          <div class="slds-checkbox">
+            <input type="checkbox" name="options" id="headerCheckbox" value="headerCheckbox"/>
+            <label class="slds-checkbox__label" for="headerCheckbox">
+              <span class="slds-checkbox_faux"></span>
+              <span class="slds-form-element__label slds-text-color_inverse">CSV file includes headers</span>
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+   
+    <div class="slds-grid slds-grid_align-center slds-p-top_large">
+      <button class="slds-button slds-button_brand" id="createFields" disabled="false">Create Fields</button>
+    </div>
+    <div class="slds-grid slds-grid_align-center slds-p-top_large" id="badgeContainer">
+      <!--<span class="slds-badge slds-badge_inverse">Authorized to salesforce.com</span>-->
+      <!--<span class="slds-badge slds-badge_inverse">CSV file Account.csv Loaded</span>-->
+    </div>
+
+    <script src="index.js">
+    </script>
+  </body>
+</html>

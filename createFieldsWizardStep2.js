@@ -4,8 +4,8 @@ window.FIELD_LOADER.getConfirmationInfo().then((obj) => {
   document.getElementById("permissionSetCount").innerHTML = `${obj.numberOfPermissionSets} permission set${obj.numberOfPermissionSets > 1 ? "s" : ""} will be given read/edit permissions to these fields.`;
   document.getElementById("org").innerHTML = `Salesforce URL: ${obj.baseSalesforceURL}`;
 });
-document.getElementById("createFieldsConfirm").addEventListener("click", ()=>{
-  FIELD_LOADER.createFieldsInSalesforce();
+document.getElementById("createFieldsConfirm").addEventListener("click", async ()=>{
+  await FIELD_LOADER.createFieldsInSalesforce();
   confirm("Fields Created");
   window.close();
 });

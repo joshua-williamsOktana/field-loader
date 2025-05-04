@@ -13,27 +13,29 @@ let wizardWindow;
 let connectedAppId='3MVG9dAEux2v1sLtPvxG8RIB7vcXzABAtg0Uep7Ae2_Jp3VpCNRJWvxiURfg9gTdHji15g40DAQE6FBfsb_8l';
 let win;
 
-let createFieldsInSalesforce = () => {
-    csvObjectArray.forEach( async (element,index) =>{
+let createFieldsInSalesforce = async () => {
+    for(const [index,element] of csvObjectArray.entries()){
+        console.log(element);
         console.log(element[2]);
         if(hasHeader && index == 0){
-            return;
+            continue;
         }
         //process picklist
         let picklistValues = {valueSetDefinition: {value: []}};
-        element[8].split('|').forEach( (picklistVal) =>{
-            picklistValues.valueSetDefinition.value.push({valueName: picklistVal, label: picklistVal})
-        });
-        SalesforceAPIWrapper.insertField(salesforceObject,element[0],element[1],element[2],element[3],(element[4].toLowerCase() === "true"),(element[5].toLowerCase() === "true"),(element[6].toLowerCase() === "true"),(element[7].toLowerCase() === "true"),picklistValues,element[9],element[10]);
-        Object.keys(permissionMap).forEach((permissionId) =>{
+        if(element[8] != null){
+            element[8].split('|').forEach( (picklistVal) =>{
+                picklistValues.valueSetDefinition.value.push({valueName: picklistVal, label: picklistVal})
+            });
+        }
+        await SalesforceAPIWrapper.insertField(salesforceObject,element[0],element[1],element[2],element[3],(element[4].toLowerCase() === "true"),(element[5].toLowerCase() === "true"),(element[6].toLowerCase() === "true"),(element[7].toLowerCase() === "true"),picklistValues,element[9],element[10]);
+        for(const permissionId of Object.keys(permissionMap)){
             if(permissionMap[permissionId].profile == true){
-                SalesforceAPIWrapper.insertFieldPermissionsProfile(permissionId,salesforceObject + "." + element[0],salesforceObject,(permissionMap[permissionId].visible === true),(permissionMap[permissionId].readOnly !== true) );
+                await SalesforceAPIWrapper.insertFieldPermissionsProfile(permissionId,salesforceObject + "." + element[0],salesforceObject,(permissionMap[permissionId].visible === true),(permissionMap[permissionId].readOnly !== true) );
             }else{
-                SalesforceAPIWrapper.insertFieldPermissionsPermissionSet(permissionId,salesforceObject + "." + element[0],salesforceObject,(permissionMap[permissionId].visible === true),(permissionMap[permissionId].readOnly !== true) );
+                await SalesforceAPIWrapper.insertFieldPermissionsPermissionSet(permissionId,salesforceObject + "." + element[0],salesforceObject,(permissionMap[permissionId].visible === true),(permissionMap[permissionId].readOnly !== true) );
             }
-            
-        });
-    });
+        }
+    }
 }
 const createWindow = () => {
     win = new BrowserWindow({
@@ -67,8 +69,8 @@ const createWindow = () => {
         wizardWindow.loadFile('createFieldsWizardStep2.html');
         
     });
-    ipcMain.handle('create-fields-in-salesforce', (_event, flsObj) => {
-        createFieldsInSalesforce();
+    ipcMain.handle('create-fields-in-salesforce', async (_event, flsObj) => {
+        return await createFieldsInSalesforce();
     });
     
     ipcMain.handle('open-login-window', async () => {

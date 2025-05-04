@@ -86,10 +86,9 @@ class SalesforceAPIWrapper {
             fieldMetadata.Metadata.precision = 18;
             fieldMetadata.Metadata.scale = 0;
         }
-        console.log(fieldMetadata);
-        await this.http.post('/services/data/'+this.apiVersion+'/tooling/sobjects/CustomField',fieldMetadata,this.config).catch((error) => (console.log(error)));
+        return await this.http.post('/services/data/'+this.apiVersion+'/tooling/sobjects/CustomField',fieldMetadata,this.config).catch((error) => (console.log(error)));
     }
-    static insertFieldPermissionsPermissionSet(permissionSetId,field,sobjectType,permissionsRead,permissionsEdit){
+    static async insertFieldPermissionsPermissionSet(permissionSetId,field,sobjectType,permissionsRead,permissionsEdit){
          let permissionMetadata = {
             ParentId: permissionSetId,
             Field : field,
@@ -97,10 +96,10 @@ class SalesforceAPIWrapper {
             PermissionsRead : permissionsRead,
             PermissionsEdit : permissionsEdit
         }
-        this.http.post('/services/data/'+this.apiVersion+'/sobjects/FieldPermissions',permissionMetadata,this.config).catch((error) => (console.log(error)));
+        return await this.http.post('/services/data/'+this.apiVersion+'/sobjects/FieldPermissions',permissionMetadata,this.config).catch((error) => (console.log(error)));
     }
-    static insertFieldPermissionsProfile(profileId,field,sobjectType,permissionsRead,permissionsEdit){
-        this.http.get(`/services/data/${this.apiVersion}/tooling/query?q=SELECT%20Id%2CName%20FROM%20PermissionSet%20WHERE%20ProfileId%20%3D%20%27${profileId}%27`,this.config).then((permissionSetIdResponse)=>{
+    static async insertFieldPermissionsProfile(profileId,field,sobjectType,permissionsRead,permissionsEdit){
+        let permissionSetIdResponse = await this.http.get(`/services/data/${this.apiVersion}/tooling/query?q=SELECT%20Id%2CName%20FROM%20PermissionSet%20WHERE%20ProfileId%20%3D%20%27${profileId}%27`,this.config);
         let permissionMetadata = {
             ParentId: permissionSetIdResponse.data.records[0].Id,
             Field : field,
@@ -108,9 +107,7 @@ class SalesforceAPIWrapper {
             PermissionsRead : permissionsRead,
             PermissionsEdit : permissionsEdit
         }
-        this.http.post('/services/data/'+this.apiVersion+'/sobjects/FieldPermissions',permissionMetadata,this.config).catch((error) => (console.log(error)));
-    });
+        return await this.http.post('/services/data/'+this.apiVersion+'/sobjects/FieldPermissions',permissionMetadata,this.config).catch((error) => (console.log(error)));
     }
-    
 }
 module.exports = SalesforceAPIWrapper;

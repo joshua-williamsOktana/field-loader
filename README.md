@@ -19,21 +19,24 @@ Requirements for the software and other tools to build, test and push
 A step by step series of examples that tell you how to get a development
 environment running
 
-Use the following command to clone the repository
+Use the following command to clone the repository:
 
     git clone https://github.com/joshua-williamsOktana/field-loader.git
 
-Use the following command to install npm dependencies
+Use the following command to install all npm dependencies:
 
     npm install
 
-Use the following command to start the Field Loader
+Use the following command to start the Field Loader:
 
     npm start
 
+Use the following command to build the Field Loader to an executable file:
+
+    npm run package
 
 ## Running the tests
 
-Use the following command to run the automated playright tests
+Use the following command to run the automated playright tests:
 
     npx playwright test
